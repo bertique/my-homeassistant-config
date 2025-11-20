@@ -1,0 +1,55 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+camera:
+  - platform: proxy
+    entity_id: camera.homeassistant_local
+    max_image_width: 120
+    
+# In configuration.yaml
+
+template:
+  - trigger:
+      # This sensor will ONLY update when the following event is fired by our automation.
+      - platform: event
+        event_type: update_weatherman_data
+    sensor:
+      - name: "Weatherman Data"
+        unique_id: weatherman_data_sensor_bundle # Add a unique ID
+        state: "OK"
+        attributes:
+          weather_condition_now: "{{ trigger.event.data.current_condition }}"
+          weather_temperature_now: "{{ trigger.event.data.current_temperature | round(0)  }}"
+          weather_uvindex_now: "{{ trigger.event.data.current_uvindex  | round(0) }}"
+            
+          weather_timestamp_0: "{{ as_timestamp(trigger.event.data.weather_data.forecast[0].datetime) | timestamp_custom('%a') }}"
+          weather_condition_0: "{{ trigger.event.data.weather_data.forecast[0].condition }}"
+          weather_temperature_0: "{{ trigger.event.data.weather_data.forecast[0].temperature | round(0) }}"
+          weather_timestamp_1: "{{ as_timestamp(trigger.event.data.weather_data.forecast[1].datetime) | timestamp_custom('%a') }}"
+          weather_condition_1: "{{ trigger.event.data.weather_data.forecast[1].condition }}"
+          weather_temperature_1: "{{ trigger.event.data.weather_data.forecast[1].temperature | round(0) }}"
+          weather_timestamp_2: "{{ as_timestamp(trigger.event.data.weather_data.forecast[2].datetime) | timestamp_custom('%a') }}"
+          weather_condition_2: "{{ trigger.event.data.weather_data.forecast[2].condition }}"
+          weather_temperature_2: "{{ trigger.event.data.weather_data.forecast[2].temperature | round(0) }}"
+        
+          calendar_summary_0: "{{ trigger.event.data.calendar_data[0].summary if trigger.event.data.calendar_data |length > 0 else '' }}"
+          calendar_month_0: "{{ as_timestamp(trigger.event.data.calendar_data[0].start) | timestamp_custom('%b') if trigger.event.data.calendar_data |length > 0 else '' }}"
+          calendar_day_0: "{{ as_timestamp(trigger.event.data.calendar_data[0].start) | timestamp_custom('%d') if trigger.event.data.calendar_data |length > 0 else '' }}"
+          
+          calendar_summary_1: "{{ trigger.event.data.calendar_data[1].summary if trigger.event.data.calendar_data |length > 1 else '' }}"
+          calendar_month_1: "{{ as_timestamp(trigger.event.data.calendar_data[1].start) | timestamp_custom('%b') if trigger.event.data.calendar_data |length > 1 else '' }}"
+          calendar_day_1: "{{ as_timestamp(trigger.event.data.calendar_data[1].start) | timestamp_custom('%d') if trigger.event.data.calendar_data |length > 1 else '' }}"
+          
+          calendar_summary_2: "{{ trigger.event.data.calendar_data[2].summary if trigger.event.data.calendar_data |length > 2 else '' }}"
+          calendar_month_2: "{{ as_timestamp(trigger.event.data.calendar_data[2].start) | timestamp_custom('%b') if trigger.event.data.calendar_data |length > 2 else '' }}"
+          calendar_day_2: "{{ as_timestamp(trigger.event.data.calendar_data[2].start) | timestamp_custom('%d') if trigger.event.data.calendar_data |length > 2 else '' }}"
+          
