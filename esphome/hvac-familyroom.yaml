@@ -1,0 +1,6 @@
+substitutions:
+  node_name: "hvac-familyroom"
+  friendly_name: "AC Family Room"
+
+packages:
+  hvac_remote: github://bertique/esphome-mitsubishi-hvac-base/hvac_base.yaml@main

@@ -1,0 +1,6 @@
+substitutions:
+  name: "homedicator"
+  friendly_name: "HomeDicator"
+
+packages:
+  device_main: "github://bertique/ESPHome-Package/HomeDicator.yaml@main"
