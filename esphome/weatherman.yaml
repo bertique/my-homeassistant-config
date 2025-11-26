@@ -2,4 +2,4 @@ substitutions:
   name: "weatherman"
 
 packages:
-  device_main: "github://bertique/ESPHome-Package/esphome-weatherman-dashboard/weatherslim.yaml@main"
+  device_main: "github://bertique/esphome-weatherman-dashboard/weatherslim.yaml@waveshare_7in5h"
