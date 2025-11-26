@@ -1,9 +1,14 @@
 substitutions:
-  node_name: "sophias-bedroom"
+  node_name: "hvac-sophias-bedroom"
   friendly_name: "AC Sophias Bedroom"
+  my_ssid: !secret wifi_ssid
+  my_password: !secret  wifi_password
 
 packages:
   hvac_remote: github://bertique/esphome-mitsubishi-hvac-base/hvac_base.yaml@main
+
+wifi:
+  #use_address: "sophias-bedroom.local"
 
 sensor:
 - platform: homeassistant
