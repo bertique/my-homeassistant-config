@@ -20,10 +20,10 @@ sensor:
     # Uncomment the lambda line to convert F to C on incoming temperature
     - lambda: return (x - 32) * (5.0/9.0);
     - clamp: # Limits values to range accepted by Mitsubishi units
-        min_value: 13
-        max_value: 33
+        min_value: 1
+        max_value: 40
         ignore_out_of_range: true
-    - throttle: 300s
+    - throttle: 30s
   on_value:
     then:
       - logger.log:
