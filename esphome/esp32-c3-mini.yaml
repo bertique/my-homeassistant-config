@@ -23,6 +23,8 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
+captive_portal:
+
 esp32_ble_tracker:
   scan_parameters:
     # We currently use the defaults to ensure Bluetooth
